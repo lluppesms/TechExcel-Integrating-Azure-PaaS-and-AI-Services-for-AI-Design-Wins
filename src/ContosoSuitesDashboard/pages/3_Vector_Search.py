@@ -44,15 +44,15 @@ def main():
     if st.button("Submit"):
         with st.spinner("Performing vector search..."):
             if query:
-                # Vectorize the query text.
-                # Exercise 3 Task 3 TODO #4: Get the vectorized query text by calling handle_query_vectorization.
+                # Vectorize the query text. # Exercise 3 Task 3 TODO #4: Get the vectorized query text by calling handle_query_vectorization.
+                query_vector = handle_query_vectorization(query)
+
+                # Perform the vector search. # Exercise 3 Task 3 TODO #5: Get the vector search results by calling handle_vector_search.
+                vector_search_results = handle_vector_search(query_vector, max_results, minimum_similarity_score)
                 
-                # Perform the vector search.
-                # Exercise 3 Task 3 TODO #5: Get the vector search results by calling handle_vector_search.
-                
-                # Display the results.
+                # Display the results.# Exercise 3 Task 3 TODO #6: Display the results as a table.
                 st.write("## Results")
-                # Exercise 3 Task 3 TODO #6: Display the results as a table.
+                st.table(vector_search_results.json())
                 
             else:
                 st.warning("Please enter a query.")
