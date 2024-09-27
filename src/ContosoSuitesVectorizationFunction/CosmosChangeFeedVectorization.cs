@@ -34,7 +34,7 @@ namespace ContosoSuites.Functions
             var oaiEndpoint = new Uri(endpointUrl);
             var credentials = new AzureKeyCredential(azureOpenAIKey);
             var openAIClient = new AzureOpenAIClient(oaiEndpoint, credentials);
-            _embeddingClient = openAIClient.GetEmbeddingClient(deploymentName);   
+            _embeddingClient = openAIClient.GetEmbeddingClient(deploymentName);
         }
 
         [Function("VectorizeMaintenanceRequests")]
@@ -66,6 +66,7 @@ namespace ContosoSuites.Functions
                 }
                 catch (Exception ex)
                 {
+                    var errorMsg = $"Error generating vector embeddings {request.Id}:  {ex.Message}";
                     _logger.LogError(ex, $"Error generating vector embeddings for maintenance request {request.Id}");
                 }
             }
@@ -85,10 +86,10 @@ namespace ContosoSuites.Functions
 
         [JsonPropertyName("type")]
         public string? Type { get; set; }
-        
+
         [JsonPropertyName("hotel_id")]
         public int HotelId {get;set;}
-        
+
         [JsonPropertyName("hotel")]
         public string Hotel { get; set; }
 
@@ -100,7 +101,7 @@ namespace ContosoSuites.Functions
 
         [JsonPropertyName("details")]
         public string Details { get; set; }
-        
+
         [JsonPropertyName("room_number")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? RoomNumber { get; set; }
@@ -108,11 +109,11 @@ namespace ContosoSuites.Functions
         [JsonPropertyName("room_numbers_checked")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? RoomNumbersChecked { get; set; }
-        
+
         [JsonPropertyName("meeting_room")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? MeetingRoom { get; set; }
-        
+
         [JsonPropertyName("location")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Location { get; set; }
