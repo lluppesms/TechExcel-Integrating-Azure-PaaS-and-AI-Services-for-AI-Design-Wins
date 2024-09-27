@@ -1,0 +1,37 @@
+# ----------------------------------------------------------------------------------------------------
+# Variables common to all environments
+# ----------------------------------------------------------------------------------------------------
+variables:
+  - name: resourceGroupPrefix
+    value: 'rg_techexcel_ai'
+  - name: appName
+    value: 'jgq2wwqcqee4s'
+  - name: functionAppName
+    value: 'jgq2wwqcqee4s-cosu-fn'
+  - name: serviceConnectionName
+    value: 'Demo Service Connection'
+
+  - name: applicationTitle
+    value: 'Vectorizor Function'
+  - name: location
+    value: 'eastus'
+
+  - name: functionAppSku
+    value: 'Y1'
+  - name: functionAppSkuFamily
+    value: 'Y'
+  - name: functionAppSkuTier
+    value: 'Dynamic'
+  - name: functionKind
+    value: 'functionapp,linux'
+  - name: storageSku 
+    value: 'Standard_LRS'
+
+  - name: appFolderName
+    value: 'src/ContosoSuitesVectorizationFunction'
+  - name: appSolutionName
+    value: 'ContosoSuitesVectorizationFunction'
+  - name: appProjectFolderName
+    value: 'src/ContosoSuitesVectorizationFunction'
+  - name: appProjectExtension
+    value: 'csproj'

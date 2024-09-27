@@ -1,0 +1,25 @@
+# ----------------------------------------------------------------------------------------------------
+# Pipeline to deploy a Function App
+# ----------------------------------------------------------------------------------------------------
+name: $(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
+
+pool:
+  vmImage: ubuntu-latest
+
+trigger:
+  - none
+
+stages:
+- stage: BuildApplication
+  displayName: Build Application
+  jobs:
+  - template: templates/build-function-template.yml
+    parameters:
+      environmentName: 'DEV'
+
+  - stage: DeployApp
+    displayName: Deploy Application
+    jobs:
+    - template: templates/deploy-function-template.yml
+      parameters:
+        environmentName: 'DEV'
