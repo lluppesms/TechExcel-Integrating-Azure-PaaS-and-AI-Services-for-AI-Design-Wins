@@ -21,16 +21,7 @@ jobs:
   steps:
   - bash: |
       echo "environmentSpecificFunctionName=$(environmentSpecificFunctionName)"
-      echo "appName=$(appName)"
       echo "environmentName=$(environmentName)"
-      if [[ '$(environmentSpecificFunctionName)' == '' ]]; then
-        echo "Using environment coded app name: $(appName)-$(environmentName)"
-        functionAppName=$(echo "$(appName)-$(environmentName)" | tr '[:upper:]' '[:lower:]')
-      else 
-        echo "Using environment specific hard-coded name: $(environmentSpecificFunctionName)"
-        functionAppName=$(echo "$(environmentSpecificFunctionName)" | tr '[:upper:]' '[:lower:]')
-      fi
-      echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
       echo "----------------------------------------"
       echo "Display Current Environment Variables:"
       printenv | sort
@@ -44,10 +35,8 @@ jobs:
   - task: CmdLine@2
     inputs:
       script: |
-        echo "environmentSpecificFunctionName=$(environmentSpecificFunctionName)"
         echo "functionAppName=$(functionAppName)"
         echo "serviceConnectionName=$(serviceConnectionName)"
-        echo "appName=$(appName)"
         echo "environmentName=$(environmentName)"
         echo "Directory of pipeline workspace:"
         tree -L 4 $(Pipeline.Workspace)
@@ -58,7 +47,7 @@ jobs:
     displayName: 'Function App Deploy'
     retryCountOnTaskFailure: 2
     inputs:
-      azureSubscription: $(serviceConnectionName)
+      azureSubscription: 'Demo Service Connection'
       appType: functionAppLinux
       appName: $(functionAppName)
       package: $(Pipeline.Workspace)/*.zip
